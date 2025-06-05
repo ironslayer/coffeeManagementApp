@@ -38,7 +38,7 @@ public class Users implements Serializable {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "status", nullable = false, unique = true)
+    @Column(name = "status", nullable = false /*, unique = true*/)
     private String status;
 
     @Column(name = "role")
