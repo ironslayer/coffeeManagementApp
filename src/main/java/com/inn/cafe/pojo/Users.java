@@ -11,6 +11,11 @@ import java.io.Serializable;
 
 @NamedQuery(name = "Users.findByEmailId", query = "select u from Users u where u.email=:email")
 
+@NamedQuery(name = "Users.getAllUsers", query = "select new com.inn.cafe.wrapper.UserWrapper(u.id,u.name,u.email,u.contactNumber,u.status) from Users u where u.role='user'")
+
+@NamedQuery(name = "Users.updateStatus", query = "update Users u set u.status=:status where u.id=:id")
+
+
 @Data
 @Entity
 @DynamicUpdate
