@@ -15,6 +15,9 @@ import java.io.Serializable;
 
 @NamedQuery(name = "Users.updateStatus", query = "update Users u set u.status=:status where u.id=:id")
 
+@NamedQuery(name = "Users.getAllAdmin", query = "select u.email from Users u where u.role='admin'")
+
+
 
 @Data
 @Entity
