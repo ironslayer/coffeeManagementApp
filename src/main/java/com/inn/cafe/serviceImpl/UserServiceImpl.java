@@ -151,4 +151,19 @@
             }
         }
 
+        @Override
+        public ResponseEntity<String> checkToken() {
+            return CafeUtils.getResponseEntity("true", HttpStatus.OK);
+        }
+
+        @Override
+        public ResponseEntity<String> changePassword(Map<String, String> requestMap) {
+            try {
+
+            } catch ( Exception ex ){
+                ex.printStackTrace();
+            }
+            return CafeUtils.getResponseEntity( CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR );
+        }
+
     }
