@@ -8,6 +8,7 @@
     import com.inn.cafe.pojo.Users;
     import com.inn.cafe.service.UserService;
     import com.inn.cafe.utils.CafeUtils;
+    import com.inn.cafe.utils.EmailUtils;
     import com.inn.cafe.wrapper.UserWrapper;
     import lombok.extern.slf4j.Slf4j;
     import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,9 @@
 
         @Autowired
         private PasswordEncoder passwordEncoder;
+
+        @Autowired
+        EmailUtils emailUtils;
 
         @Override
         public ResponseEntity<String> signUp(Map<String, String> requestMap) {
@@ -123,6 +127,7 @@
 
                     if ( optional.isPresent() ) {
                         userDao.updateStatus( requestMap.get( "status" ),  Integer.parseInt(requestMap.get("id")) );
+                        sendMailToAllAdmin( requestMap.get("status"), optional.get().getEmail(), userDao.getAllAdmin() );
                         return CafeUtils.getResponseEntity( CafeConstants.USER_UPDATED_SUCCESSFULLY, HttpStatus.OK );
                     } else {
                         return CafeUtils.getResponseEntity( CafeConstants.USER_ID_DOES_NOT_EXIST, HttpStatus.OK );
@@ -135,6 +140,15 @@
                 ex.printStackTrace();
             }
             return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        private void sendMailToAllAdmin(String status, String email, List<String> allAdmin) {
+            allAdmin.remove( jwtFilter.getCurrentUser() );
+            if ( status!=null && status.equalsIgnoreCase("true") ){
+                emailUtils.sendSimpleMessage(jwtFilter.getCurrentUser(), "Account Approved.", "USER:- "+email+ " \n is approved by \nADMIN:- "+jwtFilter.getCurrentUser(), allAdmin );
+            } else {
+                emailUtils.sendSimpleMessage(jwtFilter.getCurrentUser(), "Account Disabled.", "USER:- "+email+ " \n is disabled by \nADMIN:- "+jwtFilter.getCurrentUser(), allAdmin );
+            }
         }
 
     }
