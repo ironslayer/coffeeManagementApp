@@ -1,5 +1,6 @@
     package com.inn.cafe.serviceImpl;
 
+    import com.google.common.base.Strings;
     import com.inn.cafe.constants.CafeConstants;
     import com.inn.cafe.dao.UserDao;
     import com.inn.cafe.jwt.CustomerUserDetailsService;
@@ -159,7 +160,7 @@
         @Override
         public ResponseEntity<String> changePassword(Map<String, String> requestMap) {
             try {
-                Users userObj = userDao.findByEmail(jwtFilter.getCurrentUser());
+                Users userObj = userDao.findByEmail( jwtFilter.getCurrentUser() );
                 if ( userObj != null ) {
                     if ( passwordEncoder.matches( requestMap.get("oldPassword"), userObj.getPassword() ) ){
                         userObj.setPassword( passwordEncoder.encode(requestMap.get("newPassword")) );
@@ -169,6 +170,21 @@
                     return  CafeUtils.getResponseEntity( CafeConstants.INCORRECT_OLD_PASSWORD, HttpStatus.BAD_REQUEST );
                 }
                 return CafeUtils.getResponseEntity( CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR );
+            } catch ( Exception ex ){
+                ex.printStackTrace();
+            }
+            return CafeUtils.getResponseEntity( CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR );
+        }
+
+        // TODO: FACTORIZE
+        @Override
+        public ResponseEntity<String> forgotPassword(Map<String, String> requestMap) {
+            try {
+                Users userObj = userDao.findByEmail( requestMap.get("email") );
+                if ( !Objects.isNull( userObj ) && !Strings.isNullOrEmpty( userObj.getEmail() )){
+                    emailUtils.forgotMail( userObj.getEmail(), "Credentials by Cafe Management System.", userObj.getPassword() );
+                }
+                return CafeUtils.getResponseEntity( CafeConstants.CHECK_YOUR_EMAIL_FOR_CREDENTIALS, HttpStatus.OK );
             } catch ( Exception ex ){
                 ex.printStackTrace();
             }
