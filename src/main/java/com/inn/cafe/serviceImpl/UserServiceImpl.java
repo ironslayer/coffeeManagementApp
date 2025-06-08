@@ -159,7 +159,16 @@
         @Override
         public ResponseEntity<String> changePassword(Map<String, String> requestMap) {
             try {
-
+                Users userObj = userDao.findByEmail(jwtFilter.getCurrentUser());
+                if ( userObj != null ) {
+                    if ( passwordEncoder.matches( requestMap.get("oldPassword"), userObj.getPassword() ) ){
+                        userObj.setPassword( passwordEncoder.encode(requestMap.get("newPassword")) );
+                        userDao.save(userObj);
+                        return CafeUtils.getResponseEntity( CafeConstants.PASSWORD_UPDATED_SUCCESSFULLY, HttpStatus.OK );
+                    }
+                    return  CafeUtils.getResponseEntity( CafeConstants.INCORRECT_OLD_PASSWORD, HttpStatus.BAD_REQUEST );
+                }
+                return CafeUtils.getResponseEntity( CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR );
             } catch ( Exception ex ){
                 ex.printStackTrace();
             }
