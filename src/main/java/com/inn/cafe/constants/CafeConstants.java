@@ -20,4 +20,6 @@ public class CafeConstants {
 
     public static final String PASSWORD_UPDATED_SUCCESSFULLY = "Password Updated SSuccessfully.";
 
+    public static final String CHECK_YOUR_EMAIL_FOR_CREDENTIALS = "Check your Email for credentials.";
+
 }
