@@ -15,4 +15,9 @@ public class CafeConstants {
     public static final String USER_ID_DOES_NOT_EXIST = "User ID does not exist.";
 
     public static final String USER_UPDATED_SUCCESSFULLY = "User Status Updated Successfully.";
+
+    public static final String INCORRECT_OLD_PASSWORD = "Incorrect Old Password.";
+
+    public static final String PASSWORD_UPDATED_SUCCESSFULLY = "Password Updated SSuccessfully.";
+
 }
