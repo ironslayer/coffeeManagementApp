@@ -44,4 +44,20 @@ public class EmailUtils {
         message.setContent( htmlMsg, "text/html" );
         javaMailSender.send(message);
     }
+//REVISAR -------------------------------------------------------------------------------------------------------------------
+
+    // dentro de EmailUtils.java
+    public void sendPasswordResetMail(String to, String resetLink) throws Exception {
+        MimeMessage message = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+        helper.setFrom("doter6969@gmail.com"); // inyectado con @Value("${spring.mail.username}")
+        helper.setTo(to);
+        helper.setSubject("Restablece tu contraseña");
+        String html = "<p>Para restablecer tu contraseña haz clic <a href=\""
+                + resetLink + "\">aquí</a>. Este enlace expira en 1 hora.</p>";
+        helper.setText(html, true);
+        javaMailSender.send(message);
+    }
+
 }
+// -------------------------------------------------------------------------------------------------------------------
