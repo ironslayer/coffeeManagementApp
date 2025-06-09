@@ -25,16 +25,8 @@ public class SecurityConfig {
     @Autowired
     CustomerUserDetailsService customerUserDetailsService;
 
-//    @Autowired
-//    private AuthenticationProvider authenticationProvider;
-
     @Autowired
     JwtFilter jwtFilter;
-
-//    @Bean
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(customerUserDetailsService);
-//    }
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
@@ -54,35 +46,6 @@ public class SecurityConfig {
         return authConfig.getAuthenticationManager();
     }
 
-//    @Bean
-//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        http
-//                .cors(cors -> cors.configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues()))
-//                .csrf(csrf -> csrf.disable())
-//                .authorizeHttpRequests(auth -> auth
-//                        .requestMatchers("/user/login", "/user/signup", "/user/forgotPassword").permitAll()
-//                        .anyRequest().authenticated()
-//                )
-//                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-//        return http.build();
-//    }
-
-//    protected void configure(HttpSecurity http) throws Exception{
-//        http.cors().configurationSource( request -> new CorsConfiguration().applyPermitDefaultValues())
-//                .and()
-//                .csrf()
-//                .disable()
-//                .authorizeRequests()
-//                .antMatchers("/user/login","/user/signup","/user/forgotPassword")
-//                .permitAll()
-//                .anyRequest()
-//                .authenticated()
-//                .and().exceptionHandling()
-//                .and()
-//                .sessionManagement()
-//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-//    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -93,7 +56,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
 
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/user/login", "/user/signup", "/user/forgot-password").permitAll()
+                        .requestMatchers("/user/login", "/user/signup", "/user/forgot-password", "/user/reset-password").permitAll()
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(Customizer.withDefaults())
@@ -108,9 +71,5 @@ public class SecurityConfig {
 
         return http.build();
     }
-
-
-
-
 
 }
