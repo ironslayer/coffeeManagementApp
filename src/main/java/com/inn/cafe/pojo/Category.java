@@ -25,7 +25,6 @@ public class Category implements Serializable {
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY )
     @Column( name = "id" )
-//    @Setter( AccessLevel.NONE )
     private Integer id;
 
     @Column( name = "name" )
