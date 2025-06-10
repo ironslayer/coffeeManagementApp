@@ -19,12 +19,8 @@ public interface UserService {
     ResponseEntity<String> checkToken();
 
     ResponseEntity<String> changePassword( Map<String, String> requestMap );
-//REVISAR -------------------------------------------------------------------------------------------------------------------
-
-//    ResponseEntity<String> forgotPassword( Map<String, String> requestMap );
 
     ResponseEntity<String> changePasswordWithEmail(Map<String,String> requestMap);
-// -------------------------------------------------------------------------------------------------------------------
 
 
 }
