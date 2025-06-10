@@ -19,18 +19,12 @@ import java.util.Optional;
 
 @RestController
 public class UserRestImpl implements UserRest {
-//REVISAR -------------------------------------------------------------------------------------------------------------------
 
     @Autowired
     private PasswordResetService resetService;
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private EmailUtils emailUtils;
-// -------------------------------------------------------------------------------------------------------------------
-
 
     @Override
     public ResponseEntity<String> signUp(Map<String, String> requestMap) {
@@ -93,28 +87,12 @@ public class UserRestImpl implements UserRest {
         }
         return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-//REVISAR -------------------------------------------------------------------------------------------------------------------
-//    @Override
-//    public ResponseEntity<String> forgotPassword(Map<String, String> requestMap) {
-//        try {
-//            return userService.forgotPassword(requestMap);
-//        } catch ( Exception ex ){
-//            ex.printStackTrace();
-//        }
-//        return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
-//
-//    }
 
     @Override
     public ResponseEntity<String> forgotPassword(Map<String, String> requestMap) {
-        String email = requestMap.get("email");
-        String token = resetService.createTokenFor(email);
-        String link = "http://localhost:4200" + "/reset-password?token=" + token;
+
         try {
-            emailUtils.sendPasswordResetMail(email, link);
-            return CafeUtils.getResponseEntity(
-                    CafeConstants.CHECK_YOUR_EMAIL_FOR_CREDENTIALS, HttpStatus.OK
-            );
+            return resetService.forgotPassword( requestMap );
         } catch (Exception ex) {
             return CafeUtils.getResponseEntity(
                     CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR
@@ -124,18 +102,12 @@ public class UserRestImpl implements UserRest {
 
     @Override
     public ResponseEntity<String> resetPassword(Map<String, String> requestMap) {
-        String token = requestMap.get("token");
-        String newPass = requestMap.get("newPassword");
-        Optional<String> maybeEmail = resetService.validate(token);
-        if (maybeEmail.isEmpty()) {
-            return CafeUtils.getResponseEntity("Token inválido o expirado", HttpStatus.BAD_REQUEST);
+        try {
+            return resetService.resetPassword( requestMap );
+        } catch (Exception ex) {
+            return CafeUtils.getResponseEntity(
+                    CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR
+            );
         }
-        // reutilizas tu UserService para cambiar la clave:
-        Map<String,String> req = Map.of(
-                "email", maybeEmail.get(),
-                "newPassword", newPass
-        );
-        return userService.changePasswordWithEmail(req);
     }
 }
-//-------------------------------------------------------------------------------------------------------------------
