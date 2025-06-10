@@ -22,4 +22,6 @@ public class CafeConstants {
 
     public static final String CHECK_YOUR_EMAIL_FOR_CREDENTIALS = "Check your Email for credentials.";
 
+    public static final String INVALID_TOKEN = "Token Expired or Invalid.";
+
 }
