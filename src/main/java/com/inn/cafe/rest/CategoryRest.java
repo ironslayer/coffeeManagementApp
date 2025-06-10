@@ -13,8 +13,8 @@ public interface CategoryRest {
     @PostMapping( path = "/add")
     ResponseEntity<String> addNewCategory( @RequestBody( required = true) Map<String, String> mapRequest );
 
-//    @GetMapping( path = "/get")
-//    public ResponseEntity<List<Category>> getAllCategory(@RequestParam( required = false ) String filterValue );
-//
+    @GetMapping( path = "/get")
+    public ResponseEntity<List<Category>> getAllCategory(@RequestParam( required = false ) String filterValue );
+
 
 }
