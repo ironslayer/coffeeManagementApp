@@ -31,13 +31,13 @@ public class CategoryRestImpl implements CategoryRest {
         return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-//    @Override
-//    public ResponseEntity<List<Category>> getAllCategory( String filterValue ) {
-//        try {
-//            return categoryService.getAllCategory( filterValue );
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//        }
-//        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
-//    }
+    @Override
+    public ResponseEntity<List<Category>> getAllCategory( String filterValue ) {
+        try {
+            return categoryService.getAllCategory( filterValue );
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }
