@@ -35,7 +35,7 @@ public class JwtFilter extends OncePerRequestFilter {
             String authorizationHeader = httpServletRequest.getHeader( "Authorization" );
             String token = null;
 
-            if ( authorizationHeader != null && authorizationHeader.startsWith("Bearer ")){
+            if ( authorizationHeader != null && authorizationHeader.startsWith("Bearer")){ //TODO: UN espacio talvez
                 token = authorizationHeader.substring( 7 );
                 userName = jwtUtil.extractUsername(token);
                 claims = jwtUtil.extractAllClaims(token);
