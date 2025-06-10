@@ -1,13 +1,11 @@
     package com.inn.cafe.serviceImpl;
 
-    import com.google.common.base.Strings;
     import com.inn.cafe.constants.CafeConstants;
     import com.inn.cafe.dao.UserDao;
     import com.inn.cafe.jwt.CustomerUserDetailsService;
     import com.inn.cafe.jwt.JwtFilter;
     import com.inn.cafe.jwt.JwtUtil;
     import com.inn.cafe.pojo.Users;
-    import com.inn.cafe.service.PasswordResetService;
     import com.inn.cafe.service.UserService;
     import com.inn.cafe.utils.CafeUtils;
     import com.inn.cafe.utils.EmailUtils;
