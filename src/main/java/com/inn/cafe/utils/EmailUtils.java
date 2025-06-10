@@ -34,23 +34,10 @@ public class EmailUtils {
         return cc;
     }
 
-    public void forgotMail( String to, String subject, String password ) throws MessagingException {
+    public void sendPasswordResetMail(String to, String resetLink) throws MessagingException {
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
-        helper.setFrom("doter6969@gmail.com");
-        helper.setTo(to);
-        helper.setSubject(subject);
-        String htmlMsg = "<p><b>Your Login details for Cafe Management System</b><br><b>Email: </b> " + to + " <br><b>Password: </b> " + password + "<br><a href=\"http://localhost:4200/\">Click here to login</a></p>";
-        message.setContent( htmlMsg, "text/html" );
-        javaMailSender.send(message);
-    }
-//REVISAR -------------------------------------------------------------------------------------------------------------------
-
-    // dentro de EmailUtils.java
-    public void sendPasswordResetMail(String to, String resetLink) throws Exception {
-        MimeMessage message = javaMailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message, true);
-        helper.setFrom("doter6969@gmail.com"); // inyectado con @Value("${spring.mail.username}")
+        helper.setFrom("doter6969@gmail.com"); // TODO: Inyectar con @Value("${spring.mail.username}")
         helper.setTo(to);
         helper.setSubject("Restablece tu contraseña");
         String html = "<p>Para restablecer tu contraseña haz clic <a href=\""
@@ -60,4 +47,3 @@ public class EmailUtils {
     }
 
 }
-// -------------------------------------------------------------------------------------------------------------------
