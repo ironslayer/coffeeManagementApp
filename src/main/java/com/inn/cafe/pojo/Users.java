@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 @NamedQuery(name = "Users.findByEmailId", query = "select u from Users u where u.email=:email")
@@ -26,6 +27,7 @@ import java.io.Serializable;
 @Table(name = "users")
 public class Users implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
