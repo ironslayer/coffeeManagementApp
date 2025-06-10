@@ -24,4 +24,6 @@ public class CafeConstants {
 
     public static final String INVALID_TOKEN = "Token Expired or Invalid.";
 
+    public static final String CATEGORY_ADDED_SUCCESSFULLY = "Category Added Successfully.";
+
 }
