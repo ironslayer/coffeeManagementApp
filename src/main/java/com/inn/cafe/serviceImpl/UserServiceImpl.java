@@ -177,32 +177,13 @@
             return CafeUtils.getResponseEntity( CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR );
         }
 
-//REVISAR -------------------------------------------------------------------------------------------------------------------
-
-//        // TODO: REFACTORIZE
-//        @Override
-//        public ResponseEntity<String> forgotPassword(Map<String, String> requestMap) {
-//            try {
-//                Users userObj = userDao.findByEmail( requestMap.get("email") );
-//                if ( !Objects.isNull( userObj ) && !Strings.isNullOrEmpty( userObj.getEmail() )){
-//                    emailUtils.forgotMail( userObj.getEmail(), "Credentials by Cafe Management System.", userObj.getPassword() );
-//                }
-//                return CafeUtils.getResponseEntity( CafeConstants.CHECK_YOUR_EMAIL_FOR_CREDENTIALS, HttpStatus.OK );
-//            } catch ( Exception ex ){
-//                ex.printStackTrace();
-//            }
-//            return CafeUtils.getResponseEntity( CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR );
-//        }
-
-
-
         @Override
         public ResponseEntity<String> changePasswordWithEmail(Map<String,String> requestMap) {
             // idéntica a changePassword, pero basada en email en lugar de token JWT
             try {
-                Users u = userDao.findByEmail(requestMap.get("email"));
-                u.setPassword(passwordEncoder.encode(requestMap.get("newPassword")));
-                userDao.save(u);
+                Users user = userDao.findByEmail(requestMap.get("email"));
+                user.setPassword(passwordEncoder.encode(requestMap.get("newPassword")));
+                userDao.save(user);
                 return CafeUtils.getResponseEntity(
                         CafeConstants.PASSWORD_UPDATED_SUCCESSFULLY, HttpStatus.OK
                 );
@@ -212,8 +193,5 @@
                 );
             }
         }
-
-// -------------------------------------------------------------------------------------------------------------------
-
 
     }
