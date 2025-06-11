@@ -30,4 +30,9 @@ public class CafeConstants {
 
     public static final String CATEGORY_UPDATED_SUCCESSFULLY = "Category Updated Successfully.";
 
+    public static final String PRODUCT_ADDED_SUCCESSFULLY = "Product Added Successfully.";
+
+
+
+
 }
