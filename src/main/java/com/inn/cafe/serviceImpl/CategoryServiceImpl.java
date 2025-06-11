@@ -36,6 +36,7 @@ public class CategoryServiceImpl implements CategoryService {
                     caregoryDao.save( getCategoryFromMap( requestMap, false ) );
                     return CafeUtils.getResponseEntity( CafeConstants.CATEGORY_ADDED_SUCCESSFULLY, HttpStatus.OK );
                 }
+                return CafeUtils.getResponseEntity( CafeConstants.INVALID_DATA, HttpStatus.BAD_REQUEST );
             } else {
                 return CafeUtils.getResponseEntity( CafeConstants.UNAUTHORIZED_ACCESS, HttpStatus.UNAUTHORIZED );
             }
