@@ -32,7 +32,9 @@ public class CafeConstants {
 
     public static final String PRODUCT_ADDED_SUCCESSFULLY = "Product Added Successfully.";
 
+    public static final String PRODUCT_DOES_NOT_EXIST = "Product id Does Not exist.";
 
+    public static final String PRODUCT_UPDATED_SUCCESSFULLY = "Product Updated Successfully.";
 
 
 }
