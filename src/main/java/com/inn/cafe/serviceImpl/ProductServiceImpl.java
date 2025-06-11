@@ -115,4 +115,24 @@ public class ProductServiceImpl implements ProductService {
         return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @Override
+    public ResponseEntity<String> deleteProduct(Integer id) {
+        try {
+            if ( jwtFilter.isAdmin() ) {
+                Optional<Product> optional = productDao.findById( id );
+                if ( optional.isPresent() ) {
+                    productDao.deleteById( id );
+                    return CafeUtils.getResponseEntity( CafeConstants.PRODUCT_DELETED_SUCCESSFULLY, HttpStatus.OK );
+                } else {
+                    return CafeUtils.getResponseEntity( CafeConstants.PRODUCT_DOES_NOT_EXIST, HttpStatus.OK );
+                }
+            } else {
+                return CafeUtils.getResponseEntity( CafeConstants.UNAUTHORIZED_ACCESS, HttpStatus.UNAUTHORIZED );
+            }
+        } catch ( Exception ex ){
+            ex.printStackTrace();
+        }
+        return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 }
