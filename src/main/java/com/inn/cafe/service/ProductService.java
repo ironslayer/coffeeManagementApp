@@ -12,5 +12,8 @@ public interface ProductService {
 
     ResponseEntity<List<ProductWrapper>> getAllProduct();
 
+    ResponseEntity<String> updateProduct(Map<String, String> requestMap);
+
+
 
 }
