@@ -38,5 +38,7 @@ public class CafeConstants {
 
     public static final String PRODUCT_DELETED_SUCCESSFULLY = "Product Deleted Successfully.";
 
+    public static final String PRODUCT_UPDATED_STATUS_SUCCESSFULLY = "Product Status Updated Successfully.";
+
 
 }
