@@ -19,6 +19,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -148,7 +150,6 @@ public class BillServiceImpl implements BillService {
             bill.setContactNumber( (String) requestMap.get( "contactNumber" ) );
             bill.setPaymentMethod( (String) requestMap.get( "paymentMethod" ) );
             bill.setTotal( Integer.parseInt( (String) requestMap.get( "totalAmount" )) );
-
 //            bill.setProductDetails( (String) requestMap.get( "productDetails" ));
             Object productDetailsObj = requestMap.get("productDetails");
             String productDetailsJson = new Gson().toJson(productDetailsObj);
@@ -168,4 +169,17 @@ public class BillServiceImpl implements BillService {
                 && requestMap.containsKey( "productDetails" )
                 && requestMap.containsKey( "totalAmount" );
     }
+
+    @Override
+    public ResponseEntity<List<Bill>> getBills() {
+        List<Bill> list = new ArrayList<>();
+        if ( jwtFilter.isAdmin() ){
+            list = billDao.getAllBills();
+        } else {
+            list = billDao.getBillByUserName( jwtFilter.getCurrentUser() );
+        }
+
+        return new ResponseEntity<>( list, HttpStatus.OK );
+    }
+
 }
