@@ -40,5 +40,11 @@ public class CafeConstants {
 
     public static final String PRODUCT_UPDATED_STATUS_SUCCESSFULLY = "Product Status Updated Successfully.";
 
+    public static final String REQUIRED_DATA_NOT_FOUND = "Required Data not Found.";
+
+    public static final String STORE_LOCATION= "/home/alvaro/Almacen/Proyectos/Spring/reports";
+
+    public static final String THANK_YOU_FOR_VISIT = "Thank you for visiting. Please visit Again!!!";
+
 
 }
