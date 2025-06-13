@@ -46,5 +46,9 @@ public class CafeConstants {
 
     public static final String THANK_YOU_FOR_VISIT = "Thank you for visiting. Please visit Again!!!";
 
+    public static final String BILL_DOES_NOT_EXIST = "Bill id Does Not exist.";
+
+    public static final String BILL_DELETED_SUCCESSFULLY = "Bill Deleted Successfully.";
+
 
 }
