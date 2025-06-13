@@ -50,5 +50,4 @@ public class CafeConstants {
 
     public static final String BILL_DELETED_SUCCESSFULLY = "Bill Deleted Successfully.";
 
-
 }
