@@ -41,6 +41,11 @@ public class BillRestImpl implements BillRest {
 
     @Override
     public ResponseEntity<byte[]> getPdf(Map<String, Object> requestMap) {
+        try {
+            return billService.getPdf( requestMap );
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
         return null;
     }
 
